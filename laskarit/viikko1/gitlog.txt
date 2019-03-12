@@ -1,0 +1,116 @@
+alisa@alisa-lenovo:~/ot_viikko1/tiedostoja$ git log --stat | cat
+commit 260fa0cb1040528fe9540ddef101dd490ca543fd
+Author: Riina-Alisa <riina.alisa@live.com>
+Date:   Tue Mar 12 11:16:30 2019 +0200
+
+    Harjoittelua, muokkauksia
+
+ tiedostoja/file2             | 0
+ tiedostoja/{file1 => file22} | 0
+ tiedostoja/file3             | 1 +
+ 3 files changed, 1 insertion(+)
+
+commit c7e2653abdd962463c0e8e8c9698c1c3e8b80438
+Author: Riina-Alisa <riina.alisa@live.com>
+Date:   Tue Mar 12 11:13:55 2019 +0200
+
+    Kansio tiedostoja lisätty
+
+ tiedostoja/file1 | 0
+ tiedostoja/file2 | 0
+ tiedostoja/file3 | 0
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+
+commit ec54049efbcdefc9b4bf580f561b9f2e313267fe
+Author: Riina-Alisa <riina.alisa@live.com>
+Date:   Tue Mar 12 11:10:04 2019 +0200
+
+    Lisää muutoksia
+
+ eka.txt    | 4 +++-
+ kolmas.txt | 4 +++-
+ 2 files changed, 6 insertions(+), 2 deletions(-)
+
+commit cd063fb95ee721cbd46749e61101f4f9af480c77
+Author: Riina-Alisa <riina.alisa@live.com>
+Date:   Tue Mar 12 11:07:42 2019 +0200
+
+    Muutetaan tiedosto.txt nimi
+
+ tiedosto.txt => eka.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 02c36cf7a3e8ffeb4423fff835ec858bcb301b5f
+Author: Riina-Alisa <riina.alisa@live.com>
+Date:   Tue Mar 12 11:06:36 2019 +0200
+
+    toinen.txt poistettu
+
+ toinen.txt | 1 -
+ 1 file changed, 1 deletion(-)
+
+commit ebac4a3d46e9ae15b1f5e8da7c0a7de683eb2825
+Author: Riina-Alisa <riina.alisa@live.com>
+Date:   Tue Mar 12 11:04:58 2019 +0200
+
+    Muutoksia
+
+ tiedosto.txt | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+commit c0c2eea429ac33faee388e1d111fa674fb26b5a7
+Author: Riina-Alisa <riina.alisa@live.com>
+Date:   Tue Mar 12 11:03:38 2019 +0200
+
+    Tiedostoon tiedosto.txt lisätty tekstiä
+
+ tiedosto.txt | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+commit 8fb8b2f93f8f1c34c747a46a66d4137694ab57db
+Author: Riina-Alisa <riina.alisa@live.com>
+Date:   Tue Mar 12 10:58:42 2019 +0200
+
+    Kansio stuff lisätty, ja sinne tiedosto
+
+ stuff/jokintiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 6a23381768d6dcf5e4bc2c83a19b50301a366802
+Author: Riina-Alisa <riina.alisa@live.com>
+Date:   Tue Mar 12 10:57:40 2019 +0200
+
+    Kahden tiedodton muokkaus
+
+ kolmas.txt | 1 +
+ toinen.txt | 1 +
+ 2 files changed, 2 insertions(+)
+
+commit c908e964785c149c696c84703788996ecd301c35
+Author: Riina-Alisa <riina.alisa@live.com>
+Date:   Tue Mar 12 10:56:58 2019 +0200
+
+    kolmas.txt luotu
+
+ kolmas.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 9894e614b6b1d55d7531738927a1c0159533e3f3
+Author: Riina-Alisa <riina.alisa@live.com>
+Date:   Tue Mar 12 10:55:14 2019 +0200
+
+    Muutos ja lisäys
+
+ tiedosto.txt | 1 +
+ toinen.txt   | 0
+ 2 files changed, 1 insertion(+)
+
+commit 65a56de60e22571b3204f7dd93e1c2eae6609c82
+Author: Riina-Alisa <riina.alisa@live.com>
+Date:   Tue Mar 12 10:53:35 2019 +0200
+
+    tiedosto.txt luotu
+
+ tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
