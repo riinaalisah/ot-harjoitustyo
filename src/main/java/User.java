@@ -1,15 +1,12 @@
-import java.util.HashMap;
-
 public class User {
-    String username;
-    String password;
-    HashMap<String, String> words;
 
-    public User(String username, String password) {
+    private int id;
+    private String username;
+    private String password;
+
+    public User(int id, String username, String password) {
+        this.id = id;
         this.username = username;
         this.password = password;
-        this.words = new HashMap<>();
     }
-
-
 }
