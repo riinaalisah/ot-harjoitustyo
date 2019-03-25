@@ -12,3 +12,6 @@ Tämä repositorio sisältää *Ohjelmistotekniikka*-kurssin harjoitustyön.
 [gitlog.txt](https://github.com/riinaalisah/ot-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
 
 [komentorivi.txt](https://github.com/riinaalisah/ot-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
+
+#### Viikko 2
+[Jacoco-screenshot](https://github.com/riinaalisah/ot-harjoitustyo/blob/master/laskarit/viikko2/ot-viikko2-laskarit.png)
