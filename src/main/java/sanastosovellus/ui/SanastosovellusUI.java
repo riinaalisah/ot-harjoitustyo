@@ -47,6 +47,11 @@ public class SanastosovellusUI extends Application {
         HBox box = new HBox(10);
         Label wordLabel = new Label(pair.getWord());
         Label translationLabel = new Label(pair.getTranslation());
+        Button deleteButton = new Button("Poista sanapari");
+        deleteButton.setOnAction(e->{
+            appService.deleteWordPair(pair);
+            redrawWordPairList();
+        });
         wordLabel.setMinHeight(20);
         translationLabel.setMinHeight(20);
 
@@ -54,7 +59,7 @@ public class SanastosovellusUI extends Application {
         HBox.setHgrow(spacer, Priority.ALWAYS);
         box.setPadding(new Insets(0,5,0,5));
 
-        box.getChildren().addAll(wordLabel, translationLabel, spacer);
+        box.getChildren().addAll(wordLabel, translationLabel, deleteButton, spacer);
         return box;
     }
 
@@ -63,7 +68,8 @@ public class SanastosovellusUI extends Application {
 
         List<WordPair> pairs = appService.getPairs();
         pairs.forEach(pair->{
-            wordPairs.getChildren().add(createWordPairNode(pair));
+
+            wordPairs.getChildren().addAll(createWordPairNode(pair));
         });
     }
 
@@ -159,6 +165,7 @@ public class SanastosovellusUI extends Application {
         newUserScene = new Scene(newUserPane, 300, 450);
 
         // main scene
+
 
         ScrollPane wordPairScrollbar = new ScrollPane();
         BorderPane mainPane = new BorderPane(wordPairScrollbar);

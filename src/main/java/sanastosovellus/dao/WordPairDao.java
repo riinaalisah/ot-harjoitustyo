@@ -8,4 +8,5 @@ public interface WordPairDao {
 
     WordPair create(WordPair pair) throws Exception;
     List<WordPair> getAll();
+    boolean delete(WordPair pair);
 }

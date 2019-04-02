@@ -25,4 +25,10 @@ public class FakeWordPairDao implements WordPairDao {
         wordPairs.add(pair);
         return pair;
     }
+
+    @Override
+    public boolean delete(WordPair pair) {
+        wordPairs.remove(pair);
+        return true;
+    }
 }

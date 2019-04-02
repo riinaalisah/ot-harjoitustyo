@@ -34,7 +34,7 @@ public class FileWordPairDao implements WordPairDao {
     private void save() throws Exception {
         try (FileWriter writer = new FileWriter(new File(file))) {
             for (WordPair wp : wordpairs) {
-                writer.write(wp.getId() + ";" + wp.getWord() + ";" + wp.getTranslation() + ";" + wp.getUser().getUsername());
+                writer.write(wp.getId() + ";" + wp.getWord() + ";" + wp.getTranslation() + ";" + wp.getUser().getUsername() + "\n");
             }
         }
     }
@@ -54,5 +54,17 @@ public class FileWordPairDao implements WordPairDao {
         wordpairs.add(wp);
         save();
         return wp;
+    }
+
+    @Override
+    public boolean delete(WordPair pair){
+        try {
+            wordpairs.remove(pair);
+            save();
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+
     }
 }

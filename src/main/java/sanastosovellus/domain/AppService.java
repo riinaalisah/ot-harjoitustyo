@@ -35,6 +35,16 @@ public class AppService {
         return true;
     }
 
+    public boolean deleteWordPair(WordPair pair) {
+        try {
+            wordPairDao.delete(pair);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+
+    }
+
     public List<WordPair> getPairs() {
         if (loggedIn == null) {
             return new ArrayList<>();
