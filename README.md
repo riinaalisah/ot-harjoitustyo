@@ -1,27 +1,14 @@
-## Ohjelmistotekniikka-kurssi, harjoitustyö
+## Sanastosovellus
 
-Tämä repositorio sisältää *Ohjelmistotekniikka*-kurssin harjoitustyön.
-
-**Työ on vielä vasta alussa!**
-
----
-[Dokumentaatio](https://github.com/riinaalisah/ot-harjoitustyo/tree/master/documentation)
+Sovellus on tehty *Ohjelmistotekniikka*-kurssia varten.
 
 ---
 
-### Tehtävät
+Sovelluksen avulla käyttäjät pystyvät opettelemaan haluamiaan sanoja kahden kielen välillä. Käyttäjät pystyvät sekä lisäämään että poistamaan sanapareja tarpeen mukaan, ja vaihtamaan sanojen opettelusuuntaa. Sovellukseen kirjaudutaan käyttäjätunnuksen ja salasanan avulla. 
 
-#### Viikko 1
-[gitlog.txt](https://github.com/riinaalisah/ot-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
 
-[komentorivi.txt](https://github.com/riinaalisah/ot-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
+### Dokumentaatio
+[Vaatimusmäärittely](https://github.com/riinaalisah/ot-harjoitustyo/blob/master/documentation/vaatimusmaarittely.md)
 
-#### Viikko 2
-[Jacoco-screenshot](https://github.com/riinaalisah/ot-harjoitustyo/blob/master/laskarit/viikko2/ot-viikko2-laskarit.png)
+[Työaikakirjanpito](https://github.com/riinaalisah/ot-harjoitustyo/blob/master/documentation/tyoaikakirjanpito.md)
 
-#### Viikko 3
-[Monopoli-luokkakaavio](https://github.com/riinaalisah/ot-harjoitustyo/blob/master/laskarit/viikko3/monopoli_luokkakaavio.jpg)
-
-[Machine-sekvenssikaavio](https://github.com/riinaalisah/ot-harjoitustyo/blob/master/laskarit/viikko3/Sekvenssikaavio_Machine.png)
-
-[HSL-sekvenssikaavio](https://github.com/riinaalisah/ot-harjoitustyo/blob/master/laskarit/viikko3/Sekvenssikaavio_HSL.png)
