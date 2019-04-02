@@ -5,6 +5,9 @@ Tämä repositorio sisältää *Ohjelmistotekniikka*-kurssin harjoitustyön.
 **Työ on vielä vasta alussa!**
 
 ---
+[Dokumentaatio](https://github.com/riinaalisah/ot-harjoitustyo/tree/master/documentation)
+
+---
 
 ### Tehtävät
 
