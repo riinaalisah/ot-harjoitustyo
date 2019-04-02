@@ -1,7 +1,7 @@
 package domain;
 
-import dao.FileUserDao;
 import dao.UserDao;
+import dao.WordPairDao;
 
 import java.util.ArrayList;
 import java.util.HashMap;

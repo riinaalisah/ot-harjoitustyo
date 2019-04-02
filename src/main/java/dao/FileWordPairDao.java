@@ -1,9 +1,7 @@
 package dao;
 
-import dao.UserDao;
 import domain.User;
 import domain.WordPair;
-import domain.WordPairDao;
 
 import java.io.File;
 import java.io.FileWriter;
