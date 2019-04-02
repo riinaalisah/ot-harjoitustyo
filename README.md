@@ -14,13 +14,6 @@ Sovelluksen avulla käyttäjät pystyvät opettelemaan haluamiaan sanoja kahden 
 
 ### Komentorivitoiminnot
 
-#### Ohjelman suorittaminen
-
-Ohjelman pystyy suorittamaan komennolla
-```
-mvn compile exec:java -Dexec.mainClass=sanastosovellus.ui.SanastosovellusUI
-```
-
 #### Testaus
 
 Testit voidaan suorittaa komennolla 
