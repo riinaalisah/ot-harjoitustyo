@@ -1,6 +1,8 @@
 package domain;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  *  A class that represents a user
@@ -11,12 +13,12 @@ public class User {
 
     private String username;
     private String password;
-    private HashMap<String, String> words;
+    private List<WordPair> wordPairs;
 
     public User(String username, String password) {
         this.username = username;
         this.password = password;
-        this.words = new HashMap<>();
+        this.wordPairs = new ArrayList<>();
     }
 
     public String getUsername() {
@@ -27,8 +29,8 @@ public class User {
         return this.password;
     }
 
-    public HashMap getWords() {
-        return this.words;
+    public List getWords() {
+        return this.wordPairs;
     }
 
     @Override
