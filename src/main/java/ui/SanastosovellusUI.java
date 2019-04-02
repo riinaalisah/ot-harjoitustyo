@@ -43,16 +43,18 @@ public class SanastosovellusUI extends Application {
         appService = new SanastosovellusService(wordPairDao, userDao);
     }
 
-    public Node createWordPairNode(WordPair wp) {
+    public Node createWordPairNode(WordPair pair) {
         HBox box = new HBox(10);
-        Label label = new Label(wp.getWord());
-        label.setMinHeight(28);
+        Label wordLabel = new Label(pair.getWord());
+        Label translationLabel = new Label(pair.getTranslation());
+        wordLabel.setMinHeight(20);
+        translationLabel.setMinHeight(20);
 
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
         box.setPadding(new Insets(0,5,0,5));
 
-        box.getChildren().addAll(label, spacer);
+        box.getChildren().addAll(wordLabel, translationLabel, spacer);
         return box;
     }
 
@@ -124,7 +126,7 @@ public class SanastosovellusUI extends Application {
 
         HBox newPwdPane = new HBox(10);
         newPwdPane.setPadding(new Insets(10));
-        TextField newPwdInput = new TextField();
+        PasswordField newPwdInput = new PasswordField();
         Label newPwdLabel = new Label("Salasana");
         newPwdLabel.setPrefWidth(100);
         newPwdPane.getChildren().addAll(newPwdLabel, newPwdInput);
@@ -160,13 +162,14 @@ public class SanastosovellusUI extends Application {
 
         ScrollPane wordPairScrollbar = new ScrollPane();
         BorderPane mainPane = new BorderPane(wordPairScrollbar);
-        appScene = new Scene(mainPane, 300, 450);
+        appScene = new Scene(mainPane, 500, 450);
 
         HBox menuPane = new HBox(10);
         Region menuSpacer = new Region();
         HBox.setHgrow(menuSpacer, Priority.ALWAYS);
+        Button practiceButton = new Button("Harjoittele");
         Button logoutButton = new Button("Kirjaudu ulos");
-        menuPane.getChildren().addAll(menuLabel, menuSpacer, logoutButton);
+        menuPane.getChildren().addAll(menuLabel, menuSpacer,practiceButton, logoutButton);
         logoutButton.setOnAction(e->{
             appService.logout();
             primaryStage.setScene(loginScene);
@@ -199,7 +202,7 @@ public class SanastosovellusUI extends Application {
 
         // setup primary stage
 
-        primaryStage.setTitle("Wordpairs");
+        primaryStage.setTitle("Sanastosovellus");
         primaryStage.setScene(loginScene);
         primaryStage.show();
         primaryStage.setOnCloseRequest(e->{
