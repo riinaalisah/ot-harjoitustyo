@@ -1,8 +1,7 @@
-package dao;
+package sanastosovellus.dao;
 
-import domain.User;
+import sanastosovellus.domain.User;
 
-import java.util.HashMap;
 import java.util.List;
 
 public interface UserDao {

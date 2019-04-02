@@ -1,10 +1,9 @@
-package dao;
+package sanastosovellus.dao;
 
-import domain.User;
+import sanastosovellus.domain.User;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 

@@ -1,4 +1,4 @@
-package domain;
+package sanastosovellus.domain;
 
 public class WordPair {
 

@@ -1,7 +1,7 @@
-package domain;
+package sanastosovellus.domain;
 
-import dao.UserDao;
-import dao.WordPairDao;
+import sanastosovellus.dao.WordPairDao;
+import sanastosovellus.dao.UserDao;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,6 +1,6 @@
-package dao;
+package sanastosovellus.dao;
 
-import domain.WordPair;
+import sanastosovellus.domain.WordPair;
 
 import java.util.List;
 

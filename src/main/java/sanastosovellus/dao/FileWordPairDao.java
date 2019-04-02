@@ -1,7 +1,7 @@
-package dao;
+package sanastosovellus.dao;
 
-import domain.User;
-import domain.WordPair;
+import sanastosovellus.domain.User;
+import sanastosovellus.domain.WordPair;
 
 import java.io.File;
 import java.io.FileWriter;

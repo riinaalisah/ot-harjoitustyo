@@ -1,10 +1,10 @@
-package ui;
+package sanastosovellus.ui;
 
-import dao.FileUserDao;
-import dao.FileWordPairDao;
-import domain.SanastosovellusService;
+import sanastosovellus.dao.FileUserDao;
+import sanastosovellus.dao.FileWordPairDao;
+import sanastosovellus.domain.SanastosovellusService;
 
-import domain.WordPair;
+import sanastosovellus.domain.WordPair;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
