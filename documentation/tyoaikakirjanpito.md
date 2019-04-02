@@ -6,4 +6,4 @@
 |25.3.| 1 | Ensimmäiset luokat, käyttöliittymän aloittaminen (TodoApp mallina) |
 |26.3.| 1 | Luokkien hionta, perustoiminnallisuudet käyttäjälle kuntoon |
 |29.3.| 1 | Käyttöliittymän jatkaminen TodoAppin avulla, daojen luominen |
-|2.4.|  3 | Käyttöliittymän muokkaus sovellukseen sopivammaksi, paljon testejä, README:n muokkaus|
+|2.4.|  3,5 | Käyttöliittymän muokkaus sovellukseen sopivammaksi, sanaparien poistomahdollisuus, paljon testejä, README:n muokkaus|
