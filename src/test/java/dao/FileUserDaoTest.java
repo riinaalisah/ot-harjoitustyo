@@ -1,5 +1,6 @@
 package dao;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -62,6 +63,11 @@ public class FileUserDaoTest {
         User user = dao.findByUsername("imnew");
         assertEquals("imnew", user.getUsername());
         assertEquals("mypwd", user.getPassword());
+    }
+
+    @After
+    public void tearDown() {
+        userFile.delete();
     }
 
 }
