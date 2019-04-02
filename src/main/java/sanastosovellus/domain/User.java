@@ -12,12 +12,10 @@ public class User {
 
     private String username;
     private String password;
-    private List<WordPair> wordPairs;
 
     public User(String username, String password) {
         this.username = username;
         this.password = password;
-        this.wordPairs = new ArrayList<>();
     }
 
     public String getUsername() {
@@ -26,10 +24,6 @@ public class User {
 
     public String getPassword() {
         return this.password;
-    }
-
-    public List getWords() {
-        return this.wordPairs;
     }
 
     @Override
