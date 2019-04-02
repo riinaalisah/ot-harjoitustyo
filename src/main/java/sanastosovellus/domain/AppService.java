@@ -11,12 +11,12 @@ import java.util.stream.Collectors;
  * Class responsible for application logic
  */
 
-public class appService {
+public class AppService {
     private WordPairDao wordPairDao;
     private UserDao userDao;
     private User loggedIn;
 
-    public appService(WordPairDao wordPairDao, UserDao userDao) {
+    public AppService(WordPairDao wordPairDao, UserDao userDao) {
         this.wordPairDao = wordPairDao;
         this.userDao = userDao;
     }

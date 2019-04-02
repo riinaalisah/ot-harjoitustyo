@@ -2,7 +2,7 @@ package sanastosovellus.ui;
 
 import sanastosovellus.dao.FileUserDao;
 import sanastosovellus.dao.FileWordPairDao;
-import sanastosovellus.domain.SanastosovellusService;
+import sanastosovellus.domain.AppService;
 
 import sanastosovellus.domain.WordPair;
 import javafx.application.Application;
@@ -20,7 +20,7 @@ import java.util.Properties;
 
 public class SanastosovellusUI extends Application {
 
-    private SanastosovellusService appService;
+    private AppService appService;
 
     private Scene appScene;
     private Scene newUserScene;
@@ -40,7 +40,7 @@ public class SanastosovellusUI extends Application {
 
         FileUserDao userDao = new FileUserDao(userFile);
         FileWordPairDao wordPairDao = new FileWordPairDao(wordPairFile, userDao);
-        appService = new SanastosovellusService(wordPairDao, userDao);
+        appService = new AppService(wordPairDao, userDao);
     }
 
     public Node createWordPairNode(WordPair pair) {
