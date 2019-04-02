@@ -4,7 +4,6 @@ import dao.UserDao;
 import dao.WordPairDao;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,10 +26,10 @@ public class SanastosovellusService {
      */
 
     public boolean addWordPair(String word, String translation) {
-        HashMap<String, String> words = loggedIn.getWords();
-        if (!words.containsKey(word)) {
-            words.put(word, translation);
-        } else {
+        WordPair pair = new WordPair(word, translation, loggedIn);
+        try {
+            wordPairDao.create(pair);
+        } catch (Exception e) {
             return false;
         }
         return true;
