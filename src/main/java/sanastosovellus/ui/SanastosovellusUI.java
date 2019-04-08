@@ -1,5 +1,6 @@
 package sanastosovellus.ui;
 
+import javafx.scene.control.*;
 import sanastosovellus.dao.FileUserDao;
 import sanastosovellus.dao.FileWordPairDao;
 import sanastosovellus.domain.AppService;
@@ -9,7 +10,6 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -25,9 +25,14 @@ public class SanastosovellusUI extends Application {
     private Scene appScene;
     private Scene newUserScene;
     private Scene loginScene;
+    private Scene practiceScene;
 
     private VBox wordPairs;
     private Label menuLabel = new Label();
+    private Label loginMessage = new Label();
+    private Label practiceMessage = new Label();
+
+    private List<WordPair> usersWordpairs;
 
     @Override
     public void init() throws Exception {
@@ -68,30 +73,51 @@ public class SanastosovellusUI extends Application {
 
         List<WordPair> pairs = appService.getPairs();
         pairs.forEach(pair->{
-
             wordPairs.getChildren().addAll(createWordPairNode(pair));
         });
     }
 
     @Override
     public void start(Stage primaryStage) {
-        // login scene
 
+        // set login scene
+        setLoginScene(primaryStage);
+
+        // new createNewUserScene
+        setNewUserScene(primaryStage);
+
+        // main scene
+        setMainScene(primaryStage);
+
+        // setup primary stage
+        primaryStage.setTitle("Sanastosovellus");
+        primaryStage.setScene(loginScene);
+        primaryStage.show();
+        primaryStage.setOnCloseRequest(e->{
+            System.out.println("Suljetaan");
+            System.out.println(appService.getLoggedUser());
+            if (appService.getLoggedUser() != null) {
+                e.consume();
+            }
+        });
+    }
+
+    public void setLoginScene(Stage primaryStage) {
         VBox loginPane = new VBox(10);
         HBox usernameInputPane = new HBox(10);
         HBox pwdInputPane = new HBox(10);
         loginPane.setPadding(new Insets(10));
 
-        Label loginLabel = new Label("Käyttäjänimi");
+        Label usernameLabel = new Label("Käyttäjänimi");
+        usernameLabel.setPrefWidth(100);
         Label pwdLabel = new Label("Salasana");
+        pwdLabel.setPrefWidth(100);
 
         TextField usernameInput = new TextField();
         PasswordField pwdInput = new PasswordField();
 
-        usernameInputPane.getChildren().addAll(loginLabel, usernameInput);
+        usernameInputPane.getChildren().addAll(usernameLabel, usernameInput);
         pwdInputPane.getChildren().addAll(pwdLabel, pwdInput);
-
-        Label loginMessage = new Label();
 
         Button loginButton = new Button("Kirjaudu sisään");
         Button createButton = new Button("Luo uusi käyttäjä");
@@ -101,6 +127,8 @@ public class SanastosovellusUI extends Application {
             menuLabel.setText("Kirjautuneena sisään " + username);
             if (appService.login(username, pwd)) {
                 loginMessage.setText("");
+                usersWordpairs = appService.getPairs();
+                redrawWordPairList();
                 primaryStage.setScene(appScene);
                 usernameInput.setText("");
                 pwdInput.setText("");
@@ -117,10 +145,10 @@ public class SanastosovellusUI extends Application {
 
         loginPane.getChildren().addAll(loginMessage, usernameInputPane, pwdInputPane, loginButton, createButton);
 
-        loginScene = new Scene(loginPane, 300, 250);
+        loginScene = new Scene(loginPane, 350, 250);
+    }
 
-        // new createNewUserScene
-
+    public void setNewUserScene(Stage primaryStage) {
         VBox newUserPane = new VBox(10);
 
         HBox newUsernamePane = new HBox(10);
@@ -163,10 +191,9 @@ public class SanastosovellusUI extends Application {
         newUserPane.getChildren().addAll(userCreationMsg, newUsernamePane, newPwdPane, createNewUserButton);
 
         newUserScene = new Scene(newUserPane, 300, 450);
+    }
 
-        // main scene
-
-
+    public void setMainScene(Stage primaryStage) {
         ScrollPane wordPairScrollbar = new ScrollPane();
         BorderPane mainPane = new BorderPane(wordPairScrollbar);
         appScene = new Scene(mainPane, 500, 450);
@@ -175,9 +202,14 @@ public class SanastosovellusUI extends Application {
         Region menuSpacer = new Region();
         HBox.setHgrow(menuSpacer, Priority.ALWAYS);
         Button practiceButton = new Button("Harjoittele");
+        practiceButton.setOnAction(e->{
+            setPracticeScene(primaryStage, 0);
+            primaryStage.setScene(practiceScene);
+        });
         Button logoutButton = new Button("Kirjaudu ulos");
         menuPane.getChildren().addAll(menuLabel, menuSpacer,practiceButton, logoutButton);
         logoutButton.setOnAction(e->{
+            usersWordpairs = null;
             appService.logout();
             primaryStage.setScene(loginScene);
         });
@@ -206,21 +238,60 @@ public class SanastosovellusUI extends Application {
             redrawWordPairList();
         });
 
+    }
 
-        // setup primary stage
+    public void setPracticeScene(Stage primaryStage, int index) {
 
-        primaryStage.setTitle("Sanastosovellus");
-        primaryStage.setScene(loginScene);
-        primaryStage.show();
-        primaryStage.setOnCloseRequest(e->{
-            System.out.println("Suljetaan");
-            System.out.println(appService.getLoggedUser());
-            if (appService.getLoggedUser() != null) {
-                e.consume();
+        VBox practicePane = new VBox(10);
+        practicePane.setPadding(new Insets(10));
+
+        HBox wordPairPane = new HBox(16);
+        Label wordLabel = new Label();
+        TextField answerInput = new TextField();
+        Button answerButton = new Button("Vastaa");
+
+        Button nextButton = new Button("Ohita");
+        Button backButton = new Button("Lopeta");
+
+        wordLabel.setText(usersWordpairs.get(index).getWord());
+        wordPairPane.getChildren().addAll(wordLabel, answerInput, answerButton);
+
+        answerButton.setOnAction(e->{
+            if (answerInput.getText().equals(usersWordpairs.get(index).getTranslation())) {
+                practiceMessage.setText("Oikein! " + usersWordpairs.get(index).getWord() + " = " + usersWordpairs.get(index).getTranslation());
+                practiceMessage.setTextFill(Color.GREEN);
+
+                /**
+                 * Next word if there are words left
+                 */
+                if (index < usersWordpairs.size()-1) {
+                    setPracticeScene(primaryStage, index + 1);
+                    primaryStage.setScene(practiceScene);
+                }
+
+            } else {
+                practiceMessage.setText("Väärin, yritä uudelleen.");
+                practiceMessage.setTextFill(Color.RED);
             }
         });
 
+        nextButton.setOnAction(e->{
+            setPracticeScene(primaryStage, index + 1);
+            primaryStage.setScene(practiceScene);
+        });
 
+        backButton.setOnAction(e->{
+            setMainScene(primaryStage);
+            primaryStage.setScene(appScene);
+        });
+
+        if (index < usersWordpairs.size()-1) {
+            practicePane.getChildren().addAll(practiceMessage, wordPairPane, nextButton, backButton);
+        } else {
+            practicePane.getChildren().addAll(practiceMessage, wordPairPane, backButton);
+        }
+
+        practiceScene = new Scene(practicePane, 400, 400);
     }
 
     @Override
