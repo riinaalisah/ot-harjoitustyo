@@ -15,8 +15,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.*;
 
 public class FileWordPairDaoTest {
 
@@ -62,6 +61,17 @@ public class FileWordPairDaoTest {
         assertEquals("dog", pair.getTranslation());
         assertNotEquals(1, pair.getId());
         assertEquals("tester", pair.getUser().getUsername());
+    }
+
+    @Test
+    public void wordPairsAreDeleted() throws Exception {
+        WordPair pair = new WordPair("testi", "test", new User("tester", "testpwd"));
+        dao.create(pair);
+        List<WordPair> pairs = dao.getAll();
+        assertEquals(2, pairs.size());
+        dao.delete(pair);
+        pairs = dao.getAll();
+        assertEquals(1, pairs.size());
     }
 
     @After

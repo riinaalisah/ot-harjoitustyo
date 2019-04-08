@@ -60,4 +60,14 @@ public class AppServiceWordPairTest {
         assertEquals(0, wordpairs.size());
     }
 
+    @Test
+    public void wordPairsCanBeDeleted() {
+        service.addWordPair("koira", "dog");
+        List<WordPair> pairs = service.getPairs();
+        assertEquals(2, pairs.size());
+        service.deleteWordPair(new WordPair(2, "koira", "dog", userDao.findByUsername("tester1")));
+        pairs = service.getPairs();
+        assertEquals(1, pairs.size());
+    }
+
 }
