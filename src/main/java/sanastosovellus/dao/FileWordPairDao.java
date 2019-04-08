@@ -57,7 +57,7 @@ public class FileWordPairDao implements WordPairDao {
     }
 
     @Override
-    public boolean delete(WordPair pair){
+    public boolean delete(WordPair pair) {
         try {
             wordpairs.remove(pair);
             save();

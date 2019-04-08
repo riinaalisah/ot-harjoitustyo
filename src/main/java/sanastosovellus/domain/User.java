@@ -1,7 +1,5 @@
 package sanastosovellus.domain;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *  A class that represents a user

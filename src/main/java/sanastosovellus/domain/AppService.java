@@ -61,7 +61,7 @@ public class AppService {
      */
 
     public boolean login(String username, String pwd) {
-       User user = userDao.findByUsername(username);
+        User user = userDao.findByUsername(username);
         if (user == null) {
             return false;
         }
@@ -98,7 +98,7 @@ public class AppService {
         User user = new User(username, password);
         try {
             userDao.create(user);
-        } catch(Exception e) {
+        } catch (Exception e) {
             return false;
         }
         return true;
