@@ -9,6 +9,8 @@ Sovelluksen avulla käyttäjät pystyvät opettelemaan haluamiaan sanoja kahden 
 ### Dokumentaatio
 [Vaatimusmäärittely](https://github.com/riinaalisah/ot-harjoitustyo/blob/master/documentation/vaatimusmaarittely.md)
 
+[Arkkitehtuuri](https://github.com/riinaalisah/ot-harjoitustyo/blob/master/dokumentaatio/arkkitehtuuri.md)
+
 [Työaikakirjanpito](https://github.com/riinaalisah/ot-harjoitustyo/blob/master/documentation/tyoaikakirjanpito.md)
 
 
