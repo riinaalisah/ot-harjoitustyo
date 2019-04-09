@@ -8,4 +8,4 @@
 |29.3.| 1 | Käyttöliittymän jatkaminen TodoAppin avulla, daojen luominen |
 |2.4.|  3,5 | Käyttöliittymän muokkaus sovellukseen sopivammaksi, sanaparien poistomahdollisuus, paljon testejä, README:n muokkaus|
 |8.4.|  2,5 | Checkstyle käyttöön, harjoittelunäkymän perustoiminta, testejä | 
-|9.4.|    | 
+|9.4.|   2 | Arkkitehtuuri.md luominen |
