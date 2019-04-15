@@ -1,6 +1,9 @@
 package sanastosovellus.ui;
 
+import com.sun.javafx.charts.ChartLayoutAnimator;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import jdk.nashorn.internal.runtime.WithObject;
 import sanastosovellus.dao.FileUserDao;
 import sanastosovellus.dao.FileWordPairDao;
 import sanastosovellus.domain.AppService;
@@ -15,6 +18,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.FileInputStream;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
@@ -49,22 +54,29 @@ public class SanastosovellusUI extends Application {
     }
 
     public Node createWordPairNode(WordPair pair) {
-        HBox box = new HBox(10);
+        HBox box = new HBox(20);
+
         Label wordLabel = new Label(pair.getWord());
         Label translationLabel = new Label(pair.getTranslation());
-        Button deleteButton = new Button("Poista sanapari");
-        deleteButton.setOnAction(e->{
-            appService.deleteWordPair(pair);
-            redrawWordPairList();
-        });
+        CheckBox cb = new CheckBox();
+        cb.setIndeterminate(false);
+
+        HBox wordLabelBox = new HBox(wordLabel);
+        HBox translationLabelBox = new HBox(translationLabel);
+
+        wordLabelBox.setAlignment(Pos.BASELINE_LEFT);
+        translationLabelBox.setAlignment(Pos.BASELINE_CENTER);
+
         wordLabel.setMinHeight(20);
         translationLabel.setMinHeight(20);
 
         Region spacer = new Region();
-        HBox.setHgrow(spacer, Priority.ALWAYS);
+        HBox.setHgrow(wordLabelBox, Priority.ALWAYS);
+        HBox.setHgrow(translationLabelBox, Priority.ALWAYS);
         box.setPadding(new Insets(0,5,0,5));
 
-        box.getChildren().addAll(wordLabel, translationLabel, deleteButton, spacer);
+
+        box.getChildren().addAll(wordLabelBox, translationLabelBox, cb, spacer);
         return box;
     }
 
@@ -73,7 +85,8 @@ public class SanastosovellusUI extends Application {
 
         List<WordPair> pairs = appService.getPairs();
         pairs.forEach(pair->{
-            wordPairs.getChildren().addAll(createWordPairNode(pair));
+            Node newNode = createWordPairNode(pair);
+            wordPairs.getChildren().addAll(newNode);
         });
     }
 
@@ -95,10 +108,7 @@ public class SanastosovellusUI extends Application {
         primaryStage.show();
         primaryStage.setOnCloseRequest(e->{
             System.out.println("Suljetaan");
-            System.out.println(appService.getLoggedUser());
-            if (appService.getLoggedUser() != null) {
-                e.consume();
-            }
+            stop();
         });
     }
 
@@ -190,7 +200,7 @@ public class SanastosovellusUI extends Application {
 
         newUserPane.getChildren().addAll(userCreationMsg, newUsernamePane, newPwdPane, createNewUserButton);
 
-        newUserScene = new Scene(newUserPane, 300, 450);
+        newUserScene = new Scene(newUserPane, 350, 250);
     }
 
     public void setMainScene(Stage primaryStage) {
@@ -203,6 +213,8 @@ public class SanastosovellusUI extends Application {
         HBox.setHgrow(menuSpacer, Priority.ALWAYS);
         Button practiceButton = new Button("Harjoittele");
         practiceButton.setOnAction(e->{
+            // shuffle the words so they are not always in the same order
+            Collections.shuffle(usersWordpairs);
             setPracticeScene(primaryStage, 0);
             primaryStage.setScene(practiceScene);
         });
@@ -227,15 +239,47 @@ public class SanastosovellusUI extends Application {
         wordPairs.setMinWidth(280);
         redrawWordPairList();
 
+        Button deleteWordPairsButton = new Button("Poista valitut sanaparit");
+
+        deleteWordPairsButton.setOnAction(e->{
+            /**
+             * collects checkboxes to list
+             */
+            List<CheckBox> boxes = new ArrayList<>();
+            for (Object node : wordPairs.getChildren()) {
+                if (node instanceof HBox) {
+                    for (Node n : ((HBox) node).getChildren()) {
+                        if (n instanceof CheckBox) {
+                            boxes.add((CheckBox) n);
+                        }
+                    }
+                }
+            }
+            /**
+             * deletes word pairs that are checked
+             */
+            for (int i = 0; i < boxes.size(); i++) {
+                CheckBox box = boxes.get(i);
+                if (box.isSelected()) {
+                    appService.deleteWordPair(usersWordpairs.get(i));
+                    usersWordpairs = appService.getPairs();
+                }
+            }
+            redrawWordPairList();
+        });
+
+        wordPairScrollbar.setPadding(new Insets(15));
         wordPairScrollbar.setContent(wordPairs);
         mainPane.setBottom(createForm);
         mainPane.setTop(menuPane);
+        mainPane.setRight(deleteWordPairsButton);
 
         addWordPair.setOnAction(e->{
             appService.addWordPair(newWordInput.getText(), newTranslationInput.getText());
             newWordInput.setText("");
             newTranslationInput.setText("");
             redrawWordPairList();
+            usersWordpairs = appService.getPairs();
         });
 
     }
