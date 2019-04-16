@@ -1,9 +1,6 @@
 package sanastosovellus.ui;
 
-import com.sun.javafx.charts.ChartLayoutAnimator;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import jdk.nashorn.internal.runtime.WithObject;
 import sanastosovellus.dao.FileUserDao;
 import sanastosovellus.dao.FileWordPairDao;
 import sanastosovellus.domain.AppService;
@@ -53,6 +50,11 @@ public class SanastosovellusUI extends Application {
         appService = new AppService(wordPairDao, userDao);
     }
 
+    /**
+     * Creates a HBox element with word, translation and checkbox (for deletion)
+     * @param pair Word pair to create
+     * @return HBox with elements for word, translation and checkbox
+     */
     public Node createWordPairNode(WordPair pair) {
         HBox box = new HBox(20);
 
@@ -64,17 +66,16 @@ public class SanastosovellusUI extends Application {
         HBox wordLabelBox = new HBox(wordLabel);
         HBox translationLabelBox = new HBox(translationLabel);
 
-        wordLabelBox.setAlignment(Pos.BASELINE_LEFT);
-        translationLabelBox.setAlignment(Pos.BASELINE_CENTER);
+        wordLabelBox.setMinHeight(20);
+        translationLabelBox.setMinHeight(20);
 
-        wordLabel.setMinHeight(20);
-        translationLabel.setMinHeight(20);
+        wordLabelBox.setPrefWidth(60);
+        translationLabelBox.setPrefWidth(60);
 
         Region spacer = new Region();
         HBox.setHgrow(wordLabelBox, Priority.ALWAYS);
         HBox.setHgrow(translationLabelBox, Priority.ALWAYS);
         box.setPadding(new Insets(0,5,0,5));
-
 
         box.getChildren().addAll(wordLabelBox, translationLabelBox, cb, spacer);
         return box;
@@ -130,7 +131,6 @@ public class SanastosovellusUI extends Application {
         pwdInputPane.getChildren().addAll(pwdLabel, pwdInput);
 
         Button loginButton = new Button("Kirjaudu sisään");
-        Button createButton = new Button("Luo uusi käyttäjä");
         loginButton.setOnAction(e->{
             String username = usernameInput.getText();
             String pwd = pwdInput.getText();
@@ -148,6 +148,7 @@ public class SanastosovellusUI extends Application {
             }
         });
 
+        Button createButton = new Button("Luo uusi käyttäjä");
         createButton.setOnAction(e->{
             usernameInput.setText("");
             primaryStage.setScene(newUserScene);
@@ -160,26 +161,24 @@ public class SanastosovellusUI extends Application {
 
     public void setNewUserScene(Stage primaryStage) {
         VBox newUserPane = new VBox(10);
-
+        newUserPane.setPadding(new Insets(10));
         HBox newUsernamePane = new HBox(10);
-        newUsernamePane.setPadding(new Insets(10));
-        TextField newUsernameInput = new TextField();
+        HBox newPwdPane = new HBox(10);
+        Label userCreationMsg = new Label();
+
         Label newUsernameLabel = new Label("Käyttäjänimi");
+        TextField newUsernameInput = new TextField();
         newUsernameLabel.setPrefWidth(100);
         newUsernamePane.getChildren().addAll(newUsernameLabel, newUsernameInput);
 
-        HBox newPwdPane = new HBox(10);
-        newPwdPane.setPadding(new Insets(10));
         PasswordField newPwdInput = new PasswordField();
         Label newPwdLabel = new Label("Salasana");
         newPwdLabel.setPrefWidth(100);
         newPwdPane.getChildren().addAll(newPwdLabel, newPwdInput);
 
-        Label userCreationMsg = new Label();
+        HBox buttonBox = new HBox(10);
 
         Button createNewUserButton = new Button("Luo uusi käyttäjä");
-        createNewUserButton.setPadding(new Insets(10));
-
         createNewUserButton.setOnAction(e->{
             String username = newUsernameInput.getText();
             String pwd = newPwdInput.getText();
@@ -198,49 +197,105 @@ public class SanastosovellusUI extends Application {
             }
         });
 
-        newUserPane.getChildren().addAll(userCreationMsg, newUsernamePane, newPwdPane, createNewUserButton);
+        Button backButton = new Button("Takaisin");
+        backButton.setOnAction(e->{
+            primaryStage.setScene(loginScene);
+        });
 
+        buttonBox.getChildren().addAll(createNewUserButton, backButton);
+
+        newUserPane.getChildren().addAll(userCreationMsg, newUsernamePane, newPwdPane, buttonBox);
         newUserScene = new Scene(newUserPane, 350, 250);
     }
 
     public void setMainScene(Stage primaryStage) {
         ScrollPane wordPairScrollbar = new ScrollPane();
+        wordPairScrollbar.setPadding(new Insets(15));
         BorderPane mainPane = new BorderPane(wordPairScrollbar);
-        appScene = new Scene(mainPane, 500, 450);
 
+        /**
+         * Set menu pane
+         */
         HBox menuPane = new HBox(10);
         Region menuSpacer = new Region();
+        menuPane.setPadding(new Insets(10));
         HBox.setHgrow(menuSpacer, Priority.ALWAYS);
-        Button practiceButton = new Button("Harjoittele");
-        practiceButton.setOnAction(e->{
-            // shuffle the words so they are not always in the same order
-            Collections.shuffle(usersWordpairs);
-            setPracticeScene(primaryStage, 0);
-            primaryStage.setScene(practiceScene);
-        });
+
         Button logoutButton = new Button("Kirjaudu ulos");
-        menuPane.getChildren().addAll(menuLabel, menuSpacer,practiceButton, logoutButton);
         logoutButton.setOnAction(e->{
             usersWordpairs = null;
             appService.logout();
             primaryStage.setScene(loginScene);
         });
 
-        HBox createForm = new HBox(10);
-        Button addWordPair = new Button("Lisää sanapari");
-        Region spacer = new Region();
-        HBox.setHgrow(spacer, Priority.ALWAYS);
+        menuPane.getChildren().addAll(menuLabel, menuSpacer, logoutButton);
+
+
+        /**
+         * Set word pair creation form
+         */
+        VBox createForm = new VBox(10);
+        createForm.setPadding(new Insets(10));
+        HBox createFormLabels = new HBox(10);
+        HBox createFormInputs = new HBox(10);
+
+        // labels
+        Label wordLabel = new Label("Sana");
+        wordLabel.setPrefWidth(170);
+        Label translationLabel = new Label("Käännös");
+        createFormLabels.getChildren().addAll(wordLabel, translationLabel);
+
+        // inputs and create button
         TextField newWordInput = new TextField();
         TextField newTranslationInput = new TextField();
-        createForm.getChildren().addAll(newWordInput, newTranslationInput, spacer, addWordPair);
+        Region spacer = new Region();
+        Button addWordPair = new Button("Lisää sanapari");
+        addWordPair.setOnAction(e->{
+            appService.addWordPair(newWordInput.getText(), newTranslationInput.getText());
+            newWordInput.setText("");
+            newTranslationInput.setText("");
+            redrawWordPairList();
+            usersWordpairs = appService.getPairs();
+        });
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+        createFormInputs.getChildren().addAll(newWordInput, newTranslationInput, spacer, addWordPair);
 
+        createForm.getChildren().addAll(createFormLabels, createFormInputs);
+
+        /**
+         * Set word pair list
+         */
         wordPairs = new VBox(10);
         wordPairs.setMaxWidth(280);
         wordPairs.setMinWidth(280);
         redrawWordPairList();
 
-        Button deleteWordPairsButton = new Button("Poista valitut sanaparit");
+        /**
+         * Button for removing word pairs from list
+         */
 
+        VBox buttonBox = new VBox(10);
+        buttonBox.setPadding(new Insets(10));
+
+        Button practiceButtonDefault = new Button("Harjoittele (suomi - käännös)");
+        practiceButtonDefault.setOnAction(e->{
+            // shuffle the words so they are not always in the same order
+            Collections.shuffle(usersWordpairs);
+            practiceMessage.setText("");
+            setPracticeScene(primaryStage, 0, true);
+            primaryStage.setScene(practiceScene);
+        });
+
+        Button practiceButtonOther = new Button("Harjoittele (käännös - suomi)");
+        practiceButtonOther.setOnAction(e->{
+            Collections.shuffle(usersWordpairs);
+            practiceMessage.setText("");
+            setPracticeScene(primaryStage, 0, false);
+            primaryStage.setScene(practiceScene);
+        });
+
+
+        Button deleteWordPairsButton = new Button("Poista valitut sanaparit");
         deleteWordPairsButton.setOnAction(e->{
             /**
              * collects checkboxes to list
@@ -262,29 +317,33 @@ public class SanastosovellusUI extends Application {
                 CheckBox box = boxes.get(i);
                 if (box.isSelected()) {
                     appService.deleteWordPair(usersWordpairs.get(i));
-                    usersWordpairs = appService.getPairs();
                 }
             }
-            redrawWordPairList();
-        });
-
-        wordPairScrollbar.setPadding(new Insets(15));
-        wordPairScrollbar.setContent(wordPairs);
-        mainPane.setBottom(createForm);
-        mainPane.setTop(menuPane);
-        mainPane.setRight(deleteWordPairsButton);
-
-        addWordPair.setOnAction(e->{
-            appService.addWordPair(newWordInput.getText(), newTranslationInput.getText());
-            newWordInput.setText("");
-            newTranslationInput.setText("");
             redrawWordPairList();
             usersWordpairs = appService.getPairs();
         });
 
+        buttonBox.getChildren().addAll(practiceButtonDefault, practiceButtonOther, deleteWordPairsButton);
+
+
+        /**
+         * Set everything to place
+         */
+        wordPairScrollbar.setContent(wordPairs);
+        mainPane.setTop(menuPane);
+        mainPane.setBottom(createForm);
+        mainPane.setRight(buttonBox);
+
+        appScene = new Scene(mainPane, 600, 450);
     }
 
-    public void setPracticeScene(Stage primaryStage, int index) {
+    /**
+     * Sets practice scene
+     * @param primaryStage Stage
+     * @param index Index number for current word
+     * @param defaultDirection Direction of practice, true if word -> translation
+     */
+    public void setPracticeScene(Stage primaryStage, int index, boolean defaultDirection) {
 
         VBox practicePane = new VBox(10);
         practicePane.setPadding(new Insets(10));
@@ -294,48 +353,92 @@ public class SanastosovellusUI extends Application {
         TextField answerInput = new TextField();
         Button answerButton = new Button("Vastaa");
 
-        Button nextButton = new Button("Ohita");
-        Button backButton = new Button("Lopeta");
-
-        wordLabel.setText(usersWordpairs.get(index).getWord());
+        if (defaultDirection) {
+            wordLabel.setText(usersWordpairs.get(index).getWord());
+        } else {
+            wordLabel.setText(usersWordpairs.get(index).getTranslation());
+        }
         wordPairPane.getChildren().addAll(wordLabel, answerInput, answerButton);
 
         answerButton.setOnAction(e->{
-            if (answerInput.getText().equals(usersWordpairs.get(index).getTranslation())) {
-                practiceMessage.setText("Oikein! " + usersWordpairs.get(index).getWord() + " = " + usersWordpairs.get(index).getTranslation());
-                practiceMessage.setTextFill(Color.GREEN);
+            /**
+             * Direction word -> translation
+             */
+            if (defaultDirection) {
+                if (answerInput.getText().equals(usersWordpairs.get(index).getTranslation())) {
+                    practiceMessage.setText("Oikein! " + usersWordpairs.get(index).getWord() + " = " + usersWordpairs.get(index).getTranslation());
+                    practiceMessage.setTextFill(Color.GREEN);
 
-                /**
-                 * Next word if there are words left
-                 */
-                if (index < usersWordpairs.size()-1) {
-                    setPracticeScene(primaryStage, index + 1);
-                    primaryStage.setScene(practiceScene);
+                    /**
+                     * Next word if there are words left
+                     */
+                    if (index < usersWordpairs.size()-1) {
+                        setPracticeScene(primaryStage, index + 1, true);
+                        primaryStage.setScene(practiceScene);
+                    }
+
+                } else {
+                    practiceMessage.setText("Väärin, yritä uudelleen.");
+                    practiceMessage.setTextFill(Color.RED);
                 }
 
+            /**
+            * Direction translation -> word
+            */
             } else {
-                practiceMessage.setText("Väärin, yritä uudelleen.");
-                practiceMessage.setTextFill(Color.RED);
+
+                if (answerInput.getText().equals(usersWordpairs.get(index).getWord())) {
+                    practiceMessage.setText("Oikein! " + usersWordpairs.get(index).getTranslation() + " = " + usersWordpairs.get(index).getWord());
+                    practiceMessage.setTextFill(Color.GREEN);
+
+                    /**
+                     * Next word if there are words left
+                     */
+                    if (index < usersWordpairs.size()-1) {
+                        setPracticeScene(primaryStage, index + 1, false);
+                        primaryStage.setScene(practiceScene);
+                    }
+
+                } else {
+                    practiceMessage.setText("Väärin, yritä uudelleen.");
+                    practiceMessage.setTextFill(Color.RED);
+                }
             }
+
         });
 
+        HBox buttonBox = new HBox(10);
+        buttonBox.setPadding(new Insets(10, 0, 0, 0));
+
+        /**
+         * Button for skipping a word
+         */
+        Button nextButton = new Button("Ohita");
         nextButton.setOnAction(e->{
-            setPracticeScene(primaryStage, index + 1);
-            primaryStage.setScene(practiceScene);
+            if (defaultDirection) {
+                practiceMessage.setText(usersWordpairs.get(index).getWord() + " = " + usersWordpairs.get(index).getTranslation());
+            } else {
+                practiceMessage.setText(usersWordpairs.get(index).getTranslation() + " = " + usersWordpairs.get(index).getWord());
+            }
+
+            practiceMessage.setTextFill(Color.CHOCOLATE);
+            if (index < usersWordpairs.size()-1) {
+                setPracticeScene(primaryStage, index + 1, defaultDirection);
+                primaryStage.setScene(practiceScene);
+            }
+
         });
 
+        Button backButton = new Button("Lopeta");
         backButton.setOnAction(e->{
             setMainScene(primaryStage);
             primaryStage.setScene(appScene);
         });
 
-        if (index < usersWordpairs.size()-1) {
-            practicePane.getChildren().addAll(practiceMessage, wordPairPane, nextButton, backButton);
-        } else {
-            practicePane.getChildren().addAll(practiceMessage, wordPairPane, backButton);
-        }
+        buttonBox.getChildren().addAll(nextButton, backButton);
+        practicePane.getChildren().addAll(practiceMessage, wordPairPane, buttonBox);
 
-        practiceScene = new Scene(practicePane, 400, 400);
+        practiceScene = new Scene(practicePane, 400, 250);
     }
 
     @Override
