@@ -8,6 +8,12 @@ Sovelluksen avulla käyttäjät pystyvät opettelemaan haluamiaan sanoja kahden 
 ### Releaset
 [Viikko 5 release](https://github.com/riinaalisah/ot-harjoitustyo/releases/tag/Viikko5)
 
+Releasen saa suoritettua komennolla
+```
+java -jar sanastosovellus.jar
+```
+
+
 
 ### Dokumentaatio
 [Vaatimusmäärittely](https://github.com/riinaalisah/ot-harjoitustyo/blob/master/dokumentaatio/vaatimusmaarittely.md)
@@ -30,6 +36,14 @@ Testikattavuusraportti luodaan komennolla
 ```
 mvn test jacoco:report
 ```
+
+#### Checkstyle
+Checkstyle voidaan suorittaa komennolla
+```
+mvn jxr:jxr checkstyle:checkstyle
+```
+
+
 
 
 
