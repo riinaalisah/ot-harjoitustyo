@@ -16,6 +16,9 @@ java -jar sanastosovellus2.jar
 
 
 ### Dokumentaatio
+
+[Käyttöohje](https://github.com/riinaalisah/ot-harjoitustyo/blob/master/dokumentaatio/kayttoohje.md)
+
 [Vaatimusmäärittely](https://github.com/riinaalisah/ot-harjoitustyo/blob/master/dokumentaatio/vaatimusmaarittely.md)
 
 [Arkkitehtuuri](https://github.com/riinaalisah/ot-harjoitustyo/blob/master/dokumentaatio/arkkitehtuuri.md)
