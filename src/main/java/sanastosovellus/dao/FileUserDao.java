@@ -7,11 +7,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Class for handling file with user information
+ */
 public class FileUserDao implements UserDao {
 
     private List<User> users;
     private String file;
 
+    /**
+     * Constructor, called when app is started
+     * @param file name of the file where to store information
+     * @throws Exception
+     */
     public FileUserDao(String file) throws Exception {
         users = new ArrayList<>();
         this.file = file;
@@ -28,6 +36,10 @@ public class FileUserDao implements UserDao {
         }
     }
 
+    /**
+     * Save user information
+     * @throws Exception
+     */
     private void save() throws Exception {
         try (FileWriter fw = new FileWriter(new File(file))) {
             for (User user : users) {

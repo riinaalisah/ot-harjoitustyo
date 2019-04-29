@@ -39,7 +39,6 @@ public class SanastosovellusUI extends Application {
     @Override
     public void init() throws Exception {
         Properties properties = new Properties();
-
         properties.load(new FileInputStream("config.properties"));
 
         String userFile = properties.getProperty("userFile");
@@ -48,6 +47,24 @@ public class SanastosovellusUI extends Application {
         FileUserDao userDao = new FileUserDao(userFile);
         FileWordPairDao wordPairDao = new FileWordPairDao(wordPairFile, userDao);
         appService = new AppService(wordPairDao, userDao);
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
+        // set login scene
+        setLoginScene(primaryStage);
+        // new createNewUserScene
+        setNewUserScene(primaryStage);
+        // main scene
+        setMainScene(primaryStage);
+        // setup primary stage
+        primaryStage.setTitle("Sanastosovellus");
+        primaryStage.setScene(loginScene);
+        primaryStage.show();
+        primaryStage.setOnCloseRequest(e->{
+            System.out.println("Suljetaan");
+            stop();
+        });
     }
 
     /**
@@ -81,6 +98,9 @@ public class SanastosovellusUI extends Application {
         return box;
     }
 
+    /**
+     * Updates word pair list and creates a node for every word pair
+     */
     public void redrawWordPairList() {
         wordPairs.getChildren().clear();
 
@@ -91,28 +111,11 @@ public class SanastosovellusUI extends Application {
         });
     }
 
-    @Override
-    public void start(Stage primaryStage) {
 
-        // set login scene
-        setLoginScene(primaryStage);
-
-        // new createNewUserScene
-        setNewUserScene(primaryStage);
-
-        // main scene
-        setMainScene(primaryStage);
-
-        // setup primary stage
-        primaryStage.setTitle("Sanastosovellus");
-        primaryStage.setScene(loginScene);
-        primaryStage.show();
-        primaryStage.setOnCloseRequest(e->{
-            System.out.println("Suljetaan");
-            stop();
-        });
-    }
-
+    /**
+     * Sets the login scene
+     * @param primaryStage Primary stage
+     */
     public void setLoginScene(Stage primaryStage) {
         VBox loginPane = new VBox(10);
         HBox usernameInputPane = new HBox(10);
@@ -159,6 +162,10 @@ public class SanastosovellusUI extends Application {
         loginScene = new Scene(loginPane, 350, 250);
     }
 
+    /**
+     * Sets scene fro creating a new user
+     * @param primaryStage Primary stage
+     */
     public void setNewUserScene(Stage primaryStage) {
         VBox newUserPane = new VBox(10);
         newUserPane.setPadding(new Insets(10));
@@ -176,6 +183,7 @@ public class SanastosovellusUI extends Application {
         newPwdLabel.setPrefWidth(100);
         newPwdPane.getChildren().addAll(newPwdLabel, newPwdInput);
 
+        // HBox for two buttons: create button and back button
         HBox buttonBox = new HBox(10);
 
         Button createNewUserButton = new Button("Luo uusi käyttäjä");
@@ -208,6 +216,10 @@ public class SanastosovellusUI extends Application {
         newUserScene = new Scene(newUserPane, 350, 250);
     }
 
+    /**
+     * Sets the main scene where words are listed
+     * @param primaryStage
+     */
     public void setMainScene(Stage primaryStage) {
         ScrollPane wordPairScrollbar = new ScrollPane();
         wordPairScrollbar.setPadding(new Insets(15));
@@ -230,7 +242,6 @@ public class SanastosovellusUI extends Application {
 
         menuPane.getChildren().addAll(menuLabel, menuSpacer, logoutButton);
 
-
         /**
          * Set word pair creation form
          */
@@ -239,13 +250,13 @@ public class SanastosovellusUI extends Application {
         HBox createFormLabels = new HBox(10);
         HBox createFormInputs = new HBox(10);
 
-        // labels
+        // Labels
         Label wordLabel = new Label("Sana");
         wordLabel.setPrefWidth(170);
         Label translationLabel = new Label("Käännös");
         createFormLabels.getChildren().addAll(wordLabel, translationLabel);
 
-        // inputs and create button
+        // Inputs and create button
         TextField newWordInput = new TextField();
         TextField newTranslationInput = new TextField();
         Region spacer = new Region();
@@ -271,35 +282,39 @@ public class SanastosovellusUI extends Application {
         redrawWordPairList();
 
         /**
-         * Button for removing word pairs from list
+         * Set side pane with practice and deletion buttons
          */
-
         VBox buttonBox = new VBox(10);
         buttonBox.setPadding(new Insets(10));
 
+        // Practice button for direction word -> translation
         Button practiceButtonDefault = new Button("Harjoittele (suomi - käännös)");
         practiceButtonDefault.setOnAction(e->{
-            // shuffle the words so they are not always in the same order
-            Collections.shuffle(usersWordpairs);
-            practiceMessage.setText("");
-            setPracticeScene(primaryStage, 0, true);
-            primaryStage.setScene(practiceScene);
+            if (usersWordpairs.size() > 0) {
+                // shuffle the words so they are not always in the same order
+                Collections.shuffle(usersWordpairs);
+                practiceMessage.setText("");
+                setPracticeScene(primaryStage, 0, true);
+                primaryStage.setScene(practiceScene);
+            }
+
         });
 
+        // Practice button for direction translation -> word
         Button practiceButtonOther = new Button("Harjoittele (käännös - suomi)");
         practiceButtonOther.setOnAction(e->{
-            Collections.shuffle(usersWordpairs);
-            practiceMessage.setText("");
-            setPracticeScene(primaryStage, 0, false);
-            primaryStage.setScene(practiceScene);
+            if (usersWordpairs.size() > 0) {
+                Collections.shuffle(usersWordpairs);
+                practiceMessage.setText("");
+                setPracticeScene(primaryStage, 0, false);
+                primaryStage.setScene(practiceScene);
+            }
         });
 
-
+        // Button for deleting word pairs from list
         Button deleteWordPairsButton = new Button("Poista valitut sanaparit");
         deleteWordPairsButton.setOnAction(e->{
-            /**
-             * collects checkboxes to list
-             */
+            // Collect checkboxes to list
             List<CheckBox> boxes = new ArrayList<>();
             for (Object node : wordPairs.getChildren()) {
                 if (node instanceof HBox) {
@@ -310,9 +325,7 @@ public class SanastosovellusUI extends Application {
                     }
                 }
             }
-            /**
-             * deletes word pairs that are checked
-             */
+            // Delete word pairs that are checked
             for (int i = 0; i < boxes.size(); i++) {
                 CheckBox box = boxes.get(i);
                 if (box.isSelected()) {
@@ -325,10 +338,7 @@ public class SanastosovellusUI extends Application {
 
         buttonBox.getChildren().addAll(practiceButtonDefault, practiceButtonOther, deleteWordPairsButton);
 
-
-        /**
-         * Set everything to place
-         */
+        // Set everything to place
         wordPairScrollbar.setContent(wordPairs);
         mainPane.setTop(menuPane);
         mainPane.setBottom(createForm);

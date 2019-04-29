@@ -1,5 +1,8 @@
 package sanastosovellus.domain;
 
+/**
+ * Class for a word pair
+ */
 public class WordPair {
 
     private int id;
@@ -7,6 +10,13 @@ public class WordPair {
     private String translation;
     private User user;
 
+    /**
+     * Constructor
+     * @param id id of word pair
+     * @param word word
+     * @param translation translation of word
+     * @param user user who adds the word pair
+     */
     public WordPair(int id, String word, String translation, User user) {
         this.id = id;
         this.word = word;
@@ -14,6 +24,12 @@ public class WordPair {
         this.user = user;
     }
 
+    /**
+     * Constructor without id
+     * @param word word
+     * @param translation translation of word
+     * @param user user who adds the word pair
+     */
     public WordPair(String word, String translation, User user) {
         this.word = word;
         this.translation = translation;

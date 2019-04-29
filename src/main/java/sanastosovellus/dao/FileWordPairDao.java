@@ -9,10 +9,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Class for handling word pair information
+ */
 public class FileWordPairDao implements WordPairDao {
     public List<WordPair> wordpairs;
     private String file;
 
+    /**
+     * Constructor, called when app is started
+     * @param file name of the file where to store word pair information
+     * @param users Dao class of users
+     * @throws Exception
+     */
     public FileWordPairDao(String file, UserDao users) throws Exception {
         wordpairs = new ArrayList<>();
         this.file = file;
@@ -31,6 +40,10 @@ public class FileWordPairDao implements WordPairDao {
         }
     }
 
+    /**
+     * Save word pair information
+     * @throws Exception
+     */
     private void save() throws Exception {
         try (FileWriter writer = new FileWriter(new File(file))) {
             for (WordPair wp : wordpairs) {

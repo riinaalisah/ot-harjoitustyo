@@ -4,8 +4,6 @@ package sanastosovellus.domain;
 /**
  *  A class that represents a user
  */
-
-
 public class User {
 
     private String username;

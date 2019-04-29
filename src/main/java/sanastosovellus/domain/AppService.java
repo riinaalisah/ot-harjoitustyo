@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 /**
  * Class responsible for application logic
  */
-
 public class AppService {
     private WordPairDao wordPairDao;
     private UserDao userDao;
@@ -22,9 +21,8 @@ public class AppService {
     }
 
     /**
-     * Adding a new word pair for logged in user
+     * Add a new word pair for logged in user
      */
-
     public boolean addWordPair(String word, String translation) {
         WordPair pair = new WordPair(word, translation, loggedIn);
         try {
@@ -35,6 +33,11 @@ public class AppService {
         return true;
     }
 
+    /**
+     * Delete word pair from users words
+     * @param pair
+     * @return
+     */
     public boolean deleteWordPair(WordPair pair) {
         try {
             wordPairDao.delete(pair);
@@ -45,6 +48,10 @@ public class AppService {
 
     }
 
+    /**
+     * Get list of user's word pairs
+     * @return List of wordPairs
+     */
     public List<WordPair> getPairs() {
         if (loggedIn == null) {
             return new ArrayList<>();
@@ -57,9 +64,8 @@ public class AppService {
     }
 
     /**
-     * login
+     * Login
      */
-
     public boolean login(String username, String pwd) {
         User user = userDao.findByUsername(username);
         if (user == null) {
@@ -73,24 +79,22 @@ public class AppService {
     }
 
     /**
-     * logged in user
+     * Logged in user
      */
     public User getLoggedUser() {
         return loggedIn;
     }
 
     /**
-     * logout
+     * Logout
      */
-
     public void logout() {
         loggedIn = null;
     }
 
     /**
-     * creating a new user
+     * Create a new user
      */
-
     public boolean createUser(String username, String password) {
         if (userDao.findByUsername(username) != null) {
             return false;
