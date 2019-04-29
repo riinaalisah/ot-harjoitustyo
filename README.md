@@ -43,6 +43,12 @@ Checkstyle voidaan suorittaa komennolla
 mvn jxr:jxr checkstyle:checkstyle
 ```
 
+#### Javadoc
+Javadoc voidaan luoda komennolla
+```
+mvn javadoc:javadoc
+```
+
 
 
 
