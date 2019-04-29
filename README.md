@@ -6,16 +6,19 @@ Sovellus on tehty *Ohjelmistotekniikka*-kurssia varten.
 Sovelluksen avulla käyttäjät pystyvät opettelemaan haluamiaan sanoja kahden kielen välillä. Käyttäjät pystyvät sekä lisäämään että poistamaan sanapareja tarpeen mukaan, ja vaihtamaan sanojen opettelusuuntaa. Sovellukseen kirjaudutaan käyttäjätunnuksen ja salasanan avulla. 
 
 ### Releaset
-[Viikko 5 release](https://github.com/riinaalisah/ot-harjoitustyo/releases/tag/Viikko5)
+[Viikko 6 release](https://github.com/riinaalisah/ot-harjoitustyo/releases/tag/viikko6)
 
 Releasen saa suoritettua komennolla
 ```
-java -jar sanastosovellus.jar
+java -jar sanastosovellus2.jar
 ```
 
 
 
 ### Dokumentaatio
+
+[Käyttöohje](https://github.com/riinaalisah/ot-harjoitustyo/blob/master/dokumentaatio/kayttoohje.md)
+
 [Vaatimusmäärittely](https://github.com/riinaalisah/ot-harjoitustyo/blob/master/dokumentaatio/vaatimusmaarittely.md)
 
 [Arkkitehtuuri](https://github.com/riinaalisah/ot-harjoitustyo/blob/master/dokumentaatio/arkkitehtuuri.md)
@@ -41,6 +44,12 @@ mvn test jacoco:report
 Checkstyle voidaan suorittaa komennolla
 ```
 mvn jxr:jxr checkstyle:checkstyle
+```
+
+#### Javadoc
+Javadoc voidaan luoda komennolla
+```
+mvn javadoc:javadoc
 ```
 
 
