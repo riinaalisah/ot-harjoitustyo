@@ -20,7 +20,7 @@ public class FileWordPairDao implements WordPairDao {
      * Constructor, called when app is started
      * @param file name of the file where to store word pair information
      * @param users Dao class of users
-     * @throws Exception
+     * @throws Exception in case of an exception
      */
     public FileWordPairDao(String file, UserDao users) throws Exception {
         wordpairs = new ArrayList<>();
@@ -42,7 +42,7 @@ public class FileWordPairDao implements WordPairDao {
 
     /**
      * Save word pair information
-     * @throws Exception
+     * @throws Exception in case of an exception
      */
     private void save() throws Exception {
         try (FileWriter writer = new FileWriter(new File(file))) {

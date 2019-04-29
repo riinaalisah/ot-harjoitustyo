@@ -18,7 +18,7 @@ public class FileUserDao implements UserDao {
     /**
      * Constructor, called when app is started
      * @param file name of the file where to store information
-     * @throws Exception
+     * @throws Exception in case of an exception
      */
     public FileUserDao(String file) throws Exception {
         users = new ArrayList<>();
@@ -38,7 +38,7 @@ public class FileUserDao implements UserDao {
 
     /**
      * Save user information
-     * @throws Exception
+     * @throws Exception in case of an exception
      */
     private void save() throws Exception {
         try (FileWriter fw = new FileWriter(new File(file))) {

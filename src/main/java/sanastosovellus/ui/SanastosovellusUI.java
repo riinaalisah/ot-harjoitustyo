@@ -218,7 +218,7 @@ public class SanastosovellusUI extends Application {
 
     /**
      * Sets the main scene where words are listed
-     * @param primaryStage
+     * @param primaryStage Primary stage
      */
     public void setMainScene(Stage primaryStage) {
         ScrollPane wordPairScrollbar = new ScrollPane();
@@ -351,7 +351,7 @@ public class SanastosovellusUI extends Application {
      * Sets practice scene
      * @param primaryStage Stage
      * @param index Index number for current word
-     * @param defaultDirection Direction of practice, true if word -> translation
+     * @param defaultDirection Direction of practice, true if direction is word to translation
      */
     public void setPracticeScene(Stage primaryStage, int index, boolean defaultDirection) {
 

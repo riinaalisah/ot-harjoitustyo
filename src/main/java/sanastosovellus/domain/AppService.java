@@ -22,6 +22,9 @@ public class AppService {
 
     /**
      * Add a new word pair for logged in user
+     * @param word word
+     * @param translation translation of word
+     * @return true if word pair is added successfully
      */
     public boolean addWordPair(String word, String translation) {
         WordPair pair = new WordPair(word, translation, loggedIn);
@@ -35,8 +38,8 @@ public class AppService {
 
     /**
      * Delete word pair from users words
-     * @param pair
-     * @return
+     * @param pair word pair to be deleted
+     * @return true when word pair is deleted succesfully
      */
     public boolean deleteWordPair(WordPair pair) {
         try {
@@ -65,6 +68,9 @@ public class AppService {
 
     /**
      * Login
+     * @param username username of user to be logged in
+     * @param pwd password of user
+     * @return true if login was successful
      */
     public boolean login(String username, String pwd) {
         User user = userDao.findByUsername(username);
@@ -79,7 +85,8 @@ public class AppService {
     }
 
     /**
-     * Logged in user
+     * Get logged in user
+     * @return User that is logged in, null if none
      */
     public User getLoggedUser() {
         return loggedIn;
@@ -94,6 +101,9 @@ public class AppService {
 
     /**
      * Create a new user
+     * @param username username for user
+     * @param password password for user
+     * @return true if user is created successfully
      */
     public boolean createUser(String username, String password) {
         if (userDao.findByUsername(username) != null) {
