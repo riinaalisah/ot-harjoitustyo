@@ -10,5 +10,6 @@
 | 8.4.|  2,5   | Checkstyle käyttöön, harjoittelunäkymän perustoiminta, testejä | 
 | 9.4.|   2    | Arkkitehtuuri.md luominen |
 |15.4.|  1,5   | Sanaparien poistoon checkboxit, käyttöliittymän pieniä muokkauksia |
-|16.4.|   1,5    | Käyttöliittymän hienosäätöä, mahdollisuus harjoittelusuunnan päättämiseen |
-|     | Yht. 15  |   |
+|16.4.|   1,5  | Käyttöliittymän hienosäätöä, mahdollisuus harjoittelusuunnan päättämiseen |
+|29.4.|    1   |  Koodin siistiminen, dokumentointi, käyttöhjeen kirjoittaminen  |
+|     | Yht. 16  |   |
