@@ -41,5 +41,6 @@ uudestaan
 
 #### Jatkokehitysideoita
 
-- sanojen jaottelu kielien mukaan
+- sanojen jaottelu erillisiin listoihin kielen mukaan
 - oikeiden ja väärien vastausten tilastointi
+- käyttäjätunnuksen poistaminen
