@@ -9,6 +9,8 @@ suoritettu manuaalisesti.
 
 Käyttöliittymäluokkaa ei ole testattu. Muiden luokkien tapauksessa testauksen rivikattavuus on 92% ja haaraumakattavuus 95%.
 
+![](https://github.com/riinaalisah/ot-harjoitustyo/blob/master/dokumentaatio/kuvat/jacoco.png)
+
 
 #### Sovelluslogiikka
 
