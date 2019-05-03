@@ -35,13 +35,12 @@ ilmoittaa jos käyttäjää ei löydy järjestelmästä (eli käyttäjätunnus t
 - käyttäjä voi valita harjoittelusuunnan (kummalla kielellä sana näytetään)
 - käyttäjälle ilmoitetaan oikeista vastauksista
 - käyttäjälle ilmoitetaan vääristä vastauksista ja käyttäjä voi yrittää sanaa 
-uudestaan.
+uudestaan
+- käyttäjä voi ohittaa sanan, jolloin oikea vastaus näytetään käyttäjälle
 
 
 #### Jatkokehitysideoita
 
-- sanojen jaottelu kielien mukaan
-
-
-
- 
+- sanojen jaottelu erillisiin listoihin kielen mukaan
+- oikeiden ja väärien vastausten tilastointi
+- käyttäjätunnuksen poistaminen
