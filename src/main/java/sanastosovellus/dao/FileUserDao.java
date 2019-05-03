@@ -1,6 +1,7 @@
 package sanastosovellus.dao;
 
 import sanastosovellus.domain.User;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public class FileUserDao implements UserDao {
 
     /**
      * Constructor, called when app is started
+     *
      * @param file name of the file where to store information
      * @throws Exception in case of an exception
      */
@@ -38,6 +40,7 @@ public class FileUserDao implements UserDao {
 
     /**
      * Save user information
+     *
      * @throws Exception in case of an exception
      */
     private void save() throws Exception {
@@ -57,7 +60,7 @@ public class FileUserDao implements UserDao {
     public User findByUsername(String username) {
         return users.stream()
                 .filter(u -> u.getUsername()
-                .equals(username))
+                        .equals(username))
                 .findFirst()
                 .orElse(null);
     }

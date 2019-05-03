@@ -12,10 +12,11 @@ public class WordPair {
 
     /**
      * Constructor
-     * @param id id of word pair
-     * @param word word
+     *
+     * @param id          id of word pair
+     * @param word        word
      * @param translation translation of word
-     * @param user user who adds the word pair
+     * @param user        user who adds the word pair
      */
     public WordPair(int id, String word, String translation, User user) {
         this.id = id;
@@ -26,9 +27,10 @@ public class WordPair {
 
     /**
      * Constructor without id
-     * @param word word
+     *
+     * @param word        word
      * @param translation translation of word
-     * @param user user who adds the word pair
+     * @param user        user who adds the word pair
      */
     public WordPair(String word, String translation, User user) {
         this.word = word;

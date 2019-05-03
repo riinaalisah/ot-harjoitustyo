@@ -18,7 +18,8 @@ public class FileWordPairDao implements WordPairDao {
 
     /**
      * Constructor, called when app is started
-     * @param file name of the file where to store word pair information
+     *
+     * @param file  name of the file where to store word pair information
      * @param users Dao class of users
      * @throws Exception in case of an exception
      */
@@ -30,7 +31,7 @@ public class FileWordPairDao implements WordPairDao {
             while (sc.hasNextLine()) {
                 String parts[] = sc.nextLine().split(";");
                 int id = Integer.parseInt(parts[0]);
-                User user = users.getAll().stream().filter(u->u.getUsername().equals(parts[3])).findFirst().orElse(null);
+                User user = users.getAll().stream().filter(u -> u.getUsername().equals(parts[3])).findFirst().orElse(null);
                 WordPair wp = new WordPair(id, parts[1], parts[2], user);
                 wordpairs.add(wp);
             }
@@ -42,6 +43,7 @@ public class FileWordPairDao implements WordPairDao {
 
     /**
      * Save word pair information
+     *
      * @throws Exception in case of an exception
      */
     private void save() throws Exception {
