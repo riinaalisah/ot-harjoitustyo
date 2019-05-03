@@ -12,4 +12,5 @@
 |15.4.|  1,5   | Sanaparien poistoon checkboxit, käyttöliittymän pieniä muokkauksia |
 |16.4.|   1,5  | Käyttöliittymän hienosäätöä, mahdollisuus harjoittelusuunnan päättämiseen |
 |29.4.|    1   |  Koodin siistiminen, dokumentointi, käyttöhjeen kirjoittaminen  |
-|     | Yht. 16  |   |
+|3.5.| 1,5 | Testausdokumentin kirjoittaminen, koodin viimeiset hienosäädöt, muut loppuviimeistelyt |
+|     | Yht. 17,5  |   |
